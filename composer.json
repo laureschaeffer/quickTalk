@@ -1,0 +1,14 @@
+{
+    "name": "hp/quick-talk",
+    "description": "a PHP project",
+    "type": "project",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "controller/",
+            "Model\\": "model/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
