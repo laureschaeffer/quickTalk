@@ -4,7 +4,7 @@
 
 <h1>Register</h1>
 
-    <form action="#" method="post">
+    <form action="index.php?action=treatRegister" method="post">
         <div class="form-group">
             <label for="pseudo">Pseudo</label>
             <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Enter a pseudo">
@@ -25,7 +25,7 @@
             <input type="password" class="form-control" id="password2" name="password2" placeholder="Password confirmation">
         </div>
 
-        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+        <input type="submit" name="submit" value="Register">
     </form>
 
 

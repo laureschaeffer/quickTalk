@@ -25,7 +25,7 @@
 
     <div class="create-account">
         <p>No account yet? Sign up here</p>
-        <a href="#">Create an account</a>
+        <a href="index.php?action=register">Create an account</a>
     </div>
 
 
