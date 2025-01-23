@@ -18,12 +18,11 @@ if(isset($_GET["action"])){
     switch($_GET["action"]){
         // liens de la navbar 
         case "home" : $homeController->viewHomePage(); break;
-        case "chat" : $homeController->viewChatPage(); break;
-        case "login" : $homeController->viewLoginPage(); break;
-        case "register" : $homeController->viewRegisterPage(); break;
 
+        // session
         case "treatRegister": $sessionController->treatRegister(); break;
+        case "treatLogin": $sessionController->treatLogin(); break;
+
+        default: $homeController->viewHomePage(); break;
     }
-}  else {
-    $homeController->viewHomePage();
 }
