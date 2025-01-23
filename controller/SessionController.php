@@ -33,4 +33,47 @@ class SessionController{
         }
     }
 
+    public function treatLogin(){
+        $sessionManager = new SessionManager();
+        if($_POST["submit"]){
+
+            //if user already connected
+            if(isset($_SESSION["user"])){
+                //msg error
+                header("location: home.php"); exit;
+            }
+
+            //-----------------------filter inputs
+            $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
+            $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+
+            if($email && $password){
+                //does the user exist?
+                $user = $sessionManager->userExist($email);
+                
+                if($user){
+                    $hash = $user["password"];
+
+                    //if the password matches a hash
+                    if(password_verify($password, $hash)){
+                        $_SESSION["user"] = $user; //log the user
+                        header("location:home.php"); exit;
+                    } else {
+                        //error msg
+                        header("location: login.php"); exit;
+                    }
+                } else {
+                    header("location:login.php"); exit;
+                }
+            }
+        }
+    }
+
+    public function logout(){
+        var_dump($_SESSION["user"]); die;
+        unset($_SESSION["user"]);
+        header("location: home.php"); exit;
+        
+    }
+
 }

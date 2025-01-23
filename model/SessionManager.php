@@ -18,4 +18,13 @@ class SessionManager {
         ]);
     }
 
+    public function userExist($email){
+        $pdo = Connect::toConnect();
+        $requestMail = $pdo->prepare("SELECT * FROM user WHERE email = :email");
+        $requestMail->execute(["email" => $email]);
+        $user = $requestMail->fetch();
+
+        return $user;
+    }
+
 }
