@@ -1,6 +1,3 @@
-<?php 
-    ob_start() ;
-?>
 
 <!-- messagerie -->
 <div id="chat">
@@ -25,9 +22,3 @@
         </form>
     </div>
 </div>
-
-<?php
-$title = "Chat";
-$content = ob_get_clean();
-
-require_once "template.php";

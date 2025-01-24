@@ -57,6 +57,7 @@ class SessionController{
                     //if the password matches a hash
                     if(password_verify($password, $hash)){
                         $_SESSION["user"] = $user; //log the user
+                        $_SESSION['messages'] = "<div class='msg success'><p>You're connected</p></div>"; //confirmation msg
                         header("location:home.php"); exit;
                     } else {
                         //error msg
@@ -70,8 +71,8 @@ class SessionController{
     }
 
     public function logout(){
-        var_dump($_SESSION["user"]); die;
         unset($_SESSION["user"]);
+        $_SESSION['messages'] = "<div class='msg success'><p>You're disconnected</p></div>"; //confirmation msg
         header("location: home.php"); exit;
         
     }

@@ -1,32 +1,66 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php'; //charge toutes les classes
+require_once __DIR__ . '/vendor/autoload.php'; // load classes
+session_start(); // start a session
 
-session_start(); //démarre ou récupère la session
-
-
-//appelle les classes
-// use Controller\HomeController;
 use Controller\SessionController;
-// use Model\Connect;
 
-//classes des controleurs
-// $homeController = new HomeController();
+// instantiate classes
 $sessionController = new SessionController();
 
-if(isset($_GET["action"])){
-    switch($_GET["action"]){
-        // liens de la navbar 
-        case "home" : header("location: home.php"); exit; break;
-        case "login" : header("location: login.php"); exit; break;
-        case "chat" : header("location: chat.php"); exit; break;
-        case "register" : header("location: register.php"); exit; break;
+// search action by http request get
+$action = $_GET['action'] ?? 'home'; // by default
 
-        // session
-        case "treatRegister": $sessionController->treatRegister(); break;
-        case "treatLogin": $sessionController->treatLogin(); break;
-        case "logout": $sessionController->logout(); break;
+// create a view
+function renderView(string $page, array $data = []) {
+    ob_start(); // output buffering
+    extract($data); // export data
 
-        default: header("location: home.php"); exit; break;
+    $viewFile = __DIR__ . "/view/{$page}.php";
+    if (file_exists($viewFile)) {
+        require $viewFile;
+    } else {
+        echo "Page not found: \"$page\"";
     }
+
+    $content = ob_get_clean(); 
+    require __DIR__ . '/view/template.php'; // get template
+}
+
+// routeur
+switch ($action) {
+    // navbar links
+    case "home":
+        renderView('home');
+        break;
+
+    case "login":
+        renderView('login');
+        break;
+
+    case "chat":
+        renderView('chat');
+        break;
+
+    case "register":
+        renderView('register');
+        break;
+
+    // session actions
+    case "treatRegister":
+        $sessionController->treatRegister();
+        break;
+
+    case "treatLogin":
+        $sessionController->treatLogin();
+        break;
+
+    case "logout":
+        $sessionController->logout();
+        break;
+
+    // if no actions found
+    default:
+        renderView('home');
+        break;
 }

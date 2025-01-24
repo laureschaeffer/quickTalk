@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+// use Service\Message; 
+
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +40,7 @@ session_start();
                 </div>
             </div>
         </nav>
+        
 
         <main>
             <?= $content ?>
