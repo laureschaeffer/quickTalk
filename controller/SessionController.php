@@ -19,14 +19,19 @@ class SessionController{
             if($pseudo && $email && $password && $password2){
 
                 //if user already exist
-                // $requestUserExist = 
+                $requestUserExist = $sessionManager->userExist($email);
+
+                if($requestUserExist){
+                    $_SESSION['messages'] = "<p class='msg error'>You can't use this email</p>"; //error msg
+                    header("Location: index.php?action=register"); exit;
+                }
 
                 //if 2 password are the same & length >= 12 (should also add a regex)
                 if($password == $password2 && strlen($password >=12)){
                     $sessionManager->createUser($pseudo, $email, $password);
 
                     $_SESSION['messages'] = "<p class='msg success'>Profil created</p>"; //confirmation msg
-                    header("Location: index.php?action=home"); exit;
+                    header("Location: index.php?action=login"); exit;
 
                 } else {
                     $_SESSION['messages'] = "<p class='msg error'>Passwords do not match, or length is less than 12</p>"; //error msg

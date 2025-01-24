@@ -4,12 +4,15 @@ require_once __DIR__ . '/vendor/autoload.php'; // load classes
 session_start(); // start a session
 
 use Controller\SessionController;
+use Controller\ChatController;
 
 // instantiate classes
 $sessionController = new SessionController();
+$chatController = new ChatController();
 
 // search action by http request get
 $action = $_GET['action'] ?? 'home'; // by default
+$id = $_GET['id'] ?? null; // get id or set null
 
 // create a view
 function renderView(string $page, string $title = "", array $data = []) {
@@ -38,10 +41,6 @@ switch ($action) {
         renderView('login', 'Login');
         break;
 
-    case "chat":
-        renderView('chat', 'Chat');
-        break;
-
     case "register":
         renderView('register', 'Register');
         break;
@@ -57,6 +56,15 @@ switch ($action) {
 
     case "logout":
         $sessionController->logout();
+        break;
+    
+    // chat and conversation
+    case "chat":
+        $chatController->listConversation();
+        break;
+
+    case 'conversation':
+        $chatController->detailConversation($id);
         break;
 
     // if no actions found
