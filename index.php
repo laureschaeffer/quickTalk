@@ -12,7 +12,7 @@ $sessionController = new SessionController();
 $action = $_GET['action'] ?? 'home'; // by default
 
 // create a view
-function renderView(string $page, array $data = []) {
+function renderView(string $page, string $title = "", array $data = []) {
     ob_start(); // output buffering
     extract($data); // export data
 
@@ -31,19 +31,19 @@ function renderView(string $page, array $data = []) {
 switch ($action) {
     // navbar links
     case "home":
-        renderView('home');
+        renderView('home', 'Home');
         break;
 
     case "login":
-        renderView('login');
+        renderView('login', 'Login');
         break;
 
     case "chat":
-        renderView('chat');
+        renderView('chat', 'Chat');
         break;
 
     case "register":
-        renderView('register');
+        renderView('register', 'Register');
         break;
 
     // session actions

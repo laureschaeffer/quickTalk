@@ -25,9 +25,12 @@ class SessionController{
                 if($password == $password2 && strlen($password >=12)){
                     $sessionManager->createUser($pseudo, $email, $password);
 
-                    header("location: home.php"); exit;
+                    $_SESSION['messages'] = "<p class='msg success'>Profil created</p>"; //confirmation msg
+                    header("Location: index.php?action=home"); exit;
+
                 } else {
-                    // error msg 
+                    $_SESSION['messages'] = "<p class='msg error'>Passwords do not match, or length is less than 12</p>"; //error msg
+                    header("Location: index.php?action=register"); exit;
                 }
             }
         }
@@ -39,8 +42,8 @@ class SessionController{
 
             //if user already connected
             if(isset($_SESSION["user"])){
-                //msg error
-                header("location: home.php"); exit;
+                $_SESSION['messages'] = "<p class='msg error'>You're already connected!</p>"; //error msg
+                header("Location: index.php?action=home"); exit;
             }
 
             //-----------------------filter inputs
@@ -57,14 +60,15 @@ class SessionController{
                     //if the password matches a hash
                     if(password_verify($password, $hash)){
                         $_SESSION["user"] = $user; //log the user
-                        $_SESSION['messages'] = "<div class='msg success'><p>You're connected</p></div>"; //confirmation msg
-                        header("location:home.php"); exit;
+                        $_SESSION['messages'] = "<p class='msg success'>You're connected</p>"; //confirmation msg
+                        header("location:index.php?action=home"); exit;
                     } else {
-                        //error msg
-                        header("location: login.php"); exit;
+                        $_SESSION['messages'] = "<p class='msg error'>Invalid credentials</p>"; //eror msg
+                        header("Location: index.php?action=login"); exit;
                     }
                 } else {
-                    header("location:login.php"); exit;
+                    $_SESSION['messages'] = "<p class='msg error'>Invalid credentials</p>"; //error msg
+                    header("Location: index.php?action=login"); exit;
                 }
             }
         }
@@ -72,8 +76,8 @@ class SessionController{
 
     public function logout(){
         unset($_SESSION["user"]);
-        $_SESSION['messages'] = "<div class='msg success'><p>You're disconnected</p></div>"; //confirmation msg
-        header("location: home.php"); exit;
+        $_SESSION['messages'] = "<p class='msg success'>You're disconnected</p>"; //confirmation msg
+        header("location: index.php?action=home"); exit;
         
     }
 
