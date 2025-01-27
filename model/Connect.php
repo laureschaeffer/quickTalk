@@ -7,7 +7,7 @@ namespace Model;
 abstract class Connect {
 
     const HOST = "localhost"; 
-    const DB = "quick_talk";
+    const DB = "quick_talk_2";
     const USER = "root" ;
     const PASS = "";
 

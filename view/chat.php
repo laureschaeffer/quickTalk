@@ -3,22 +3,19 @@
 <?php
 
 $conversations = $data;
+var_dump($conversations);
 
-
-foreach ($conversations as $conversation) {
-    $lastMessageDate = new DateTime($conversation["last_message_date"]);
-    // if I'm not the person sending msg
-    if($conversation["id_user"] !== $_SESSION["user"]["id_user"]){ ?>
+foreach ($conversations as $conversation) { ?>
         <div>
-            <a href="index.php?action=conversation&id=<?= $conversation["id_user"] ?>">
+            <a href="#">
                 <img src="https://placehold.co/50" alt="placeholder" class="profil__picture">
-                <span><?= $conversation['pseudo'] ?></span>
+                <span>Pseudo:</span>
             </a>
             
-            <span><?= $lastMessageDate->format("d-m H:i") ?></span>
+            <span>Date:</span>
         </div>
         <?php
-    }
+    // $lastMessageDate->format("d-m H:i") ; 
 }
 
 ?>

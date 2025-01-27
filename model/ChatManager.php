@@ -6,14 +6,19 @@ use Model\Connect;
 
 class ChatManager {
 
-    //find conversations
+    //find messages sent by or to a user
     public function findConversation($idUser): array{
         $pdo = Connect::toConnect();
-        $requestConversation = $pdo->prepare(" SELECT u.id_user, u.pseudo, MAX(m.date) AS last_message_date FROM message m 
-        INNER JOIN user u ON (m.id_user = u.id_user OR m.id_user_1 = u.id_user)
-        WHERE m.id_user = :idUser OR m.id_user_1 = :idUser
-        GROUP BY u.id_user, u.pseudo
-        ORDER BY last_message_date DESC;");
+        $requestConversation = $pdo->prepare("
+            SELECT DISTINCT c.id_conversation, m.content, m.createdAt AS messageCreatedAt, sender.pseudo AS senderPseudo, receiver.pseudo AS receiverPseudo
+            FROM CONVERSATION c
+            JOIN receive r ON c.id_conversation = r.id_conversation
+            JOIN USER receiver ON r.id_user = receiver.id_user 
+            JOIN MESSAGE m ON c.id_conversation = m.id_conversation
+            JOIN USER sender ON m.id_user = sender.id_user
+            WHERE r.id_user = :idUser OR m.id_user = :idUser
+            ORDER BY m.createdAt;
+        ");
 
         $requestConversation->execute(["idUser" => $idUser]);
         
