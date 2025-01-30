@@ -17,7 +17,9 @@ class ChatController{
     //show conversation with someone
     function detailConversation($idUser){
         $chatManager = new ChatManager();
-        var_dump($idUser);
+        $messages = $chatManager->findMessage($idUser);
+
+        renderView('conversation', 'Conversation', $messages);
     }
     
 }
