@@ -17,7 +17,7 @@ use Service\Message;
     
     <header id="header">
         <nav id="nav">
-            <a href="index.php?action=hom" class="nav__logo">Logo</a>
+            <a href="index.php?action=home" class="nav__logo">QuickTalk</a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">

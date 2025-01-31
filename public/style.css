@@ -13,6 +13,7 @@
     --text-color: hsl(203, 8%, 98%);
     --text-color-light: hsl(203, 8%, 80%);
     --body-color: hsl(259, 20%, 18%);
+    --gradient-colors: linear-gradient(90deg, var(--second-color) 0%, var(--first-color) 100%);
     
     /*========== Font and typography ==========*/
     --font-family: 'Oxanium', cursive;
@@ -35,6 +36,7 @@ body {
     background-color: var(--body-color);
     color: var(--text-color);
     font-size: var(--normal-font-size);
+    position: relative;
 }
 
 ul {
@@ -71,6 +73,19 @@ main{
     align-items: center;
     box-shadow: 0 3px 8px hsla(203, 71%, 4%, .2);
 }
+
+
+.nav__logo {
+    font-weight: 600;
+    font-size: var(--biggest-font-size);
+
+    background: var(--gradient-colors);
+    /* -webkit-background-clip: text; */
+    background-clip: text;
+    /* color: transparent; */
+    -webkit-text-fill-color: transparent;
+}
+
 
 .nav__logo, .nav__toggle, .nav__link, .nav__close{
     color: var(--text-color);
@@ -147,10 +162,73 @@ main{
     border-color: #f5c6cb;
 }
 
-/* ------------------chat box------------------- */
+/* ---------------------------------------------------------------------HOME SECTION --------------------------------------------------------------------- */
+#home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 8rem;
+}
 
+.home__info{
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+}
+.home__titles h1{
+    background: var(--gradient-colors);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
 
-/* ==================================BREAKPOINTS=============================== */
+.home__data{
+    display: flex;
+    column-gap: 1.5rem;
+}
+
+.home-img{
+    width: 400px;
+    filter: drop-shadow(0 4px 20px #110A34);
+    /* filter: drop-shadow(0 4px 32px hsla(203, 71%, 60%, .5)); */
+}
+
+/* ----shapes---- */
+.home__shape{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+}
+
+#shape-1{
+    width: 150px;
+    height: 150px;
+    background-color: var(--first-color);
+    top: -2.5rem;
+    left: -1.5rem;
+}
+
+#shape-2, #shape-3{
+    width: 250px;
+    height: 250px;
+}
+
+#shape-2{
+    background-color: var(--first-color);
+    top: 16rem;
+    right: 0;
+}
+
+#shape-3{
+    background-color: var(--second-color);
+    left: -3.5rem;
+
+}
+
+/* ===================================================================================================================================================================================================================================================BREAKPOINTS========================================================================================================================================================================================================================================================== */
+
 /* for computer */
 @media screen and (min-width: 1150px){
 
